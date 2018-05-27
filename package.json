@@ -1,6 +1,6 @@
 {
   "name": "draggula",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "license": "MIT",
   "main": "dist/index.js",
   "scripts": {
@@ -8,8 +8,7 @@
     "watch": "jest --watch",
     "test": "jest",
     "test:bin": "node dist/index.js",
-    "release":
-      "yarn build && git commit -am 'build'; yarn version && git push --tags && git push origin master",
+    "release": "yarn build && git commit -am 'build'; yarn version && git push --tags && git push origin master",
     "build": "tsc"
   },
   "dependencies": {
@@ -34,6 +33,13 @@
       "^.+\\.tsx?$": "ts-jest"
     },
     "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$",
-    "moduleFileExtensions": ["ts", "tsx", "js", "jsx", "json", "node"]
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "jsx",
+      "json",
+      "node"
+    ]
   }
 }
