@@ -1,11 +1,11 @@
-# init-ts-lib
+# Draggula
 
 ## Quick Start
 
 Install:
 
 ```
-$ yarn add init-ts-lib
+$ yarn add draggula
 ```
 
 # Contributing
@@ -14,7 +14,7 @@ Fork, implement, add tests, pull request, get my everlasting thanks and a respec
 
 ### Thanks:
 
-To all [Contributors](https://github.com/jondot/init-ts-lib/graphs/contributors) - you make this happen, thanks!
+To all [Contributors](https://github.com/jondot/draggula/graphs/contributors) - you make this happen, thanks!
 
 # Copyright
 
