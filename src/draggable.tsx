@@ -5,7 +5,7 @@ import { Consumer } from './context'
 import Dragged from './dragged'
 import { onSnapFn } from './types'
 
-interface Props {
+export interface Props {
   provide: string
   onSnap: onSnapFn
 }

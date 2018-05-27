@@ -18,7 +18,7 @@ import { debounce, FPS_60 } from './utils'
 import L from 'lodash'
 
 const SNAP_DEBOUNCE_WAIT = 400
-interface Props {
+export interface Props {
   onSnap: onSnapFn
   provide: string
   context: DragProviderState

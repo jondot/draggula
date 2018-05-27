@@ -3,7 +3,7 @@ import { Component } from 'react'
 
 import { Consumer } from './context'
 
-interface Props {
+export interface Props {
   accept: string
 }
 class DragTarget extends Component<Props> {

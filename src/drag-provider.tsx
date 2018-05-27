@@ -15,7 +15,7 @@ import { debounce, FPS_60 } from './utils'
 
 const SNAP_THRESH = 10
 
-interface Props {
+export interface Props {
   onUpdateHits: UpdateHitsFn
 }
 interface IDragProvider {
