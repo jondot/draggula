@@ -121,7 +121,7 @@ var Dragged = /** @class */ (function (_super) {
     };
     Dragged.prototype.render = function () {
         var Child = react_1.default.Children.only(this.props.children);
-        return (react_1.default.createElement(react_native_1.Animated.View, __assign({}, this.panResponder.panHandlers, { style: [
+        return (react_1.default.createElement(react_native_1.Animated.View, __assign({ pointerEvents: this._locked ? 'none' : 'auto' }, this.panResponder.panHandlers, { style: [
                 {
                     position: 'absolute',
                     zIndex: this.props.zIndex

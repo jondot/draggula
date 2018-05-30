@@ -128,6 +128,7 @@ class Dragged extends Component<Props> {
     const Child = React.Children.only(this.props.children)
     return (
       <Animated.View
+        pointerEvents={this._locked ? 'none' : 'auto'}
         {...this.panResponder.panHandlers}
         style={[
           {
