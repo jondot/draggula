@@ -1,6 +1,6 @@
 {
   "name": "draggula",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "license": "MIT",
   "main": "dist/index",
   "types": "dist/index",
@@ -9,15 +9,15 @@
     "watch": "jest --watch",
     "test": "jest",
     "test:bin": "node dist/index.js",
-    "release": "yarn build && git commit -am 'build'; yarn version && git push --tags && git push origin master",
+    "release":
+      "yarn build && git commit -am 'build'; yarn version && git push --tags && git push origin master",
     "build": "tsc"
   },
   "dependencies": {
     "lodash": "^4.17.5"
   },
   "peerDependencies": {
-    "react": "^16.4.0",
-    "react-native": "^0.55.4"
+    "react": "^16.4.0"
   },
   "devDependencies": {
     "@types/jest": "^22.2.3",
@@ -25,6 +25,7 @@
     "@types/react": "^16.3.14",
     "@types/react-native": "^0.55.16",
     "jest": "^22.4.3",
+    "react": "^16.4.0",
     "ts-jest": "^22.4.5",
     "tslint-config-prettier": "^1.7.0",
     "typescript": "^2.8.3"
@@ -34,13 +35,6 @@
       "^.+\\.tsx?$": "ts-jest"
     },
     "testRegex": "(src/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$",
-    "moduleFileExtensions": [
-      "ts",
-      "tsx",
-      "js",
-      "jsx",
-      "json",
-      "node"
-    ]
+    "moduleFileExtensions": ["ts", "tsx", "js", "jsx", "json", "node"]
   }
 }

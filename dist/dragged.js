@@ -37,6 +37,7 @@ var Dragged = /** @class */ (function (_super) {
         _this._value = { x: 0, y: 0 };
         _this._moveOffset = { x: 0, y: 0 };
         _this._dragging = false;
+        _this._locked = false;
         _this._debouncedSnap = function () { };
         _this.onMove = function () {
             var offset = _this._moveOffset;
@@ -51,6 +52,10 @@ var Dragged = /** @class */ (function (_super) {
             var hit = _this._contextHitTest();
             if (hit) {
                 var snap = hit;
+                if (_this.props.lockOnHit) {
+                    console.log('locking');
+                    _this._locked = true;
+                }
                 if (_this._dragging && snap) {
                     var delta_1 = {
                         x: snap.x - _this._moveOffset.x,
@@ -70,21 +75,31 @@ var Dragged = /** @class */ (function (_super) {
         _this._contextUpdateLayout = _this.props.context.updateLayout(_this.props.provide);
         var hitTest = _this.props.context.hitTest;
         _this._contextHitTest = utils_1.debounce(function () { return hitTest(_this.props.provide); }, utils_1.FPS_60);
+        var panResponderMove = react_native_1.Animated.event([
+            null,
+            {
+                dx: _this.state.pan.x,
+                dy: _this.state.pan.y
+            }
+        ], { listener: _this.onMove });
         _this.panResponder = react_native_1.PanResponder.create({
-            onMoveShouldSetPanResponder: function (evt, gestureState) { return true; },
-            onMoveShouldSetPanResponderCapture: function (evt, gestureState) { return true; },
+            onMoveShouldSetPanResponder: function (evt, gestureState) { return !_this._locked; },
+            onMoveShouldSetPanResponderCapture: function (evt, gestureState) { return !_this._locked; },
             onPanResponderGrant: function (e, gestureState) {
                 _this.state.pan.setOffset(_this._value);
                 _this._moveOffset = _this._value;
                 _this._dragging = true;
             },
-            onPanResponderMove: react_native_1.Animated.event([
-                null,
-                {
-                    dx: _this.state.pan.x,
-                    dy: _this.state.pan.y
+            onPanResponderMove: function () {
+                var args = [];
+                for (var _i = 0; _i < arguments.length; _i++) {
+                    args[_i] = arguments[_i];
                 }
-            ], { listener: _this.onMove }),
+                if (_this._locked) {
+                    return;
+                }
+                return panResponderMove.apply(void 0, args);
+            },
             onPanResponderRelease: function (e, gestureState) {
                 _this.state.pan.flattenOffset();
                 var layout = _this.state.pan.getLayout();

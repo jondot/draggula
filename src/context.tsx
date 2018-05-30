@@ -8,6 +8,6 @@ const defaultContext: DragProviderState = {
   targets: {},
   hits: {}
 }
-const { Consumer, Provider } = React.createContext(defaultContext)
+const createContext = () => React.createContext(defaultContext)
 
-export { Consumer, Provider }
+export default createContext

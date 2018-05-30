@@ -23,6 +23,7 @@ export interface Props {
   provide: string
   context: DragProviderState
   zIndex: number
+  lockOnHit: boolean
 }
 
 class Dragged extends Component<Props> {
@@ -33,6 +34,7 @@ class Dragged extends Component<Props> {
   _value = { x: 0, y: 0 }
   _moveOffset = { x: 0, y: 0 }
   _dragging = false
+  _locked = false
   panResponder: PanResponderInstance
   _contextUpdateLayout: UpdateLayoutFn
   _contextHitTest: () => ReturnType<HitTestFn>
@@ -52,6 +54,10 @@ class Dragged extends Component<Props> {
     const hit = this._contextHitTest()
     if (hit) {
       const snap = hit
+      if (this.props.lockOnHit) {
+        console.log('locking')
+        this._locked = true
+      }
       if (this._dragging && snap) {
         const delta = {
           x: snap.x - this._moveOffset.x,
@@ -77,25 +83,30 @@ class Dragged extends Component<Props> {
     )
     const hitTest = this.props.context.hitTest
     this._contextHitTest = debounce(() => hitTest(this.props.provide), FPS_60)
-
+    const panResponderMove = Animated.event(
+      [
+        null,
+        {
+          dx: this.state.pan.x,
+          dy: this.state.pan.y
+        }
+      ],
+      { listener: this.onMove }
+    )
     this.panResponder = PanResponder.create({
-      onMoveShouldSetPanResponder: (evt, gestureState) => true,
-      onMoveShouldSetPanResponderCapture: (evt, gestureState) => true,
+      onMoveShouldSetPanResponder: (evt, gestureState) => !this._locked,
+      onMoveShouldSetPanResponderCapture: (evt, gestureState) => !this._locked,
       onPanResponderGrant: (e, gestureState) => {
         this.state.pan.setOffset(this._value)
         this._moveOffset = this._value
         this._dragging = true
       },
-      onPanResponderMove: Animated.event(
-        [
-          null,
-          {
-            dx: this.state.pan.x,
-            dy: this.state.pan.y
-          }
-        ],
-        { listener: this.onMove }
-      ),
+      onPanResponderMove: (...args: any[]) => {
+        if (this._locked) {
+          return
+        }
+        return panResponderMove(...args)
+      },
       onPanResponderRelease: (e, gestureState) => {
         this.state.pan.flattenOffset()
         const layout = this.state.pan.getLayout()

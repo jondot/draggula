@@ -7,6 +7,7 @@ export interface Props {
     provide: string;
     context: DragProviderState;
     zIndex: number;
+    lockOnHit: boolean;
 }
 declare class Dragged extends Component<Props> {
     state: {
@@ -25,6 +26,7 @@ declare class Dragged extends Component<Props> {
         y: number;
     };
     _dragging: boolean;
+    _locked: boolean;
     panResponder: PanResponderInstance;
     _contextUpdateLayout: UpdateLayoutFn;
     _contextHitTest: () => ReturnType<HitTestFn>;

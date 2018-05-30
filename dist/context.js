@@ -12,6 +12,5 @@ var defaultContext = {
     targets: {},
     hits: {}
 };
-var _a = react_1.default.createContext(defaultContext), Consumer = _a.Consumer, Provider = _a.Provider;
-exports.Consumer = Consumer;
-exports.Provider = Provider;
+var createContext = function () { return react_1.default.createContext(defaultContext); };
+exports.default = createContext;

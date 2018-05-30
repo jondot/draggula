@@ -23,22 +23,23 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var react_1 = __importDefault(require("react"));
 var react_2 = require("react");
-var context_1 = require("./context");
-var DragTarget = /** @class */ (function (_super) {
-    __extends(DragTarget, _super);
-    function DragTarget() {
-        return _super !== null && _super.apply(this, arguments) || this;
-    }
-    DragTarget.prototype.render = function () {
-        var _this = this;
-        var Child = react_1.default.Children.only(this.props.children);
-        return (react_1.default.createElement(context_1.Consumer, null, function (context) {
-            return react_1.default.cloneElement(Child, {
-                style: __assign({}, Child.props.style, { position: 'absolute' }),
-                onLayout: context.onTargetLayout(_this.props.accept)
-            });
-        }));
-    };
-    return DragTarget;
-}(react_2.Component));
-exports.default = DragTarget;
+function createDragTarget(Consumer) {
+    return /** @class */ (function (_super) {
+        __extends(DragTarget, _super);
+        function DragTarget() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        DragTarget.prototype.render = function () {
+            var _this = this;
+            var Child = react_1.default.Children.only(this.props.children);
+            return (react_1.default.createElement(Consumer, null, function (context) {
+                return react_1.default.cloneElement(Child, {
+                    style: __assign({}, Child.props.style, { position: 'absolute' }),
+                    onLayout: context.onTargetLayout(_this.props.accept)
+                });
+            }));
+        };
+        return DragTarget;
+    }(react_2.Component));
+}
+exports.default = createDragTarget;
